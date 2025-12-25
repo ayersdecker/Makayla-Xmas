@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
 :root{
   --bg1:#081229; --bg2:#2b1f4a; --accent:#ff6b6b;
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#fff}
+html,body{height:100%;margin:0;font-family:'Fredoka',system-ui,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#fff}
 .container{max-width:880px;margin:3rem auto;padding:2rem;text-align:center}
-h1{font-family:'Georgia',serif;margin:0 0 .25rem;font-size:2.2rem}
+h1{margin:0 0 .25rem;font-size:2.2rem}
 .subtitle{opacity:.9;margin:0 0 1.5rem}
 #tree-area{display:flex;flex-direction:column;align-items:center;gap:1rem;margin-bottom:1rem}
 #ornaments{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
@@ -17,6 +18,8 @@ h1{font-family:'Georgia',serif;margin:0 0 .25rem;font-size:2.2rem}
 #puzzle{margin-top:1rem}
 #answer{padding:10px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:transparent;color:inherit;margin-right:8px}
 #submit{padding:10px 12px;border-radius:6px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+a{display:inline-block;padding:12px 24px;margin:8px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;transition:all .3s;cursor:pointer}
+a:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(255,107,107,.4);background:#ff5555}
 #feedback{margin-top:.6rem;min-height:1.2rem}
 #success{margin-top:1rem;animation:pop .6s ease}
 @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:none;opacity:1}}

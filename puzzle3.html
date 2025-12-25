@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Puzzle 3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Puzzle Three</h1>
+    <p class="subtitle">You unlocked this page with the correct passcode.</p>
+
+    <p>Find a 6-letter word that completes the line:</p>
+    <blockquote>"I give you my heart — in this small, quiet ______."</blockquote>
+
+    <p>Enter the 6-letter answer below to complete the puzzle.</p>
+
+    <input id="a2" maxlength="12" placeholder="6-letter answer" autocomplete="off">
+    <button id="check2">Submit</button>
+    <p id="res"></p>
+
+    <p class="hint">Hint: It's a cozy, time-related noun often used with the phrase 'just a ______'.</p>
+
+    <p><a href="puzzle2.html">Back to Puzzle Two</a></p>
+  </div>
+
+  <div style="text-align: center;">
+    <p>Fun Fact: A single bee produces about 1/12 of a teaspoon of honey in its entire life. Every spoonful is a group effort.</p>
+  </div>
+    <canvas id="snow"></canvas>
+
+    <script>
+    (function(){
+      const ANSWERS = ['MOMENT'];
+      const inp = document.getElementById('a2');
+      const res = document.getElementById('res');
+      const b = document.getElementById('check2');
+      function norm(s){return (s||'').trim().toUpperCase();}
+      b.addEventListener('click', ()=>{
+        const v = norm(inp.value);
+        if(!v){ res.textContent='Please enter an answer.'; return; }
+        if(ANSWERS.includes(v)){
+          res.textContent = 'Correct!'; res.style.color = '#8ef58e';
+          setTimeout(()=>{ window.location.href = 'final.html'; }, 900);
+        } else { res.textContent = 'Not quite — try a poetic 6-letter word.'; res.style.color='#ffd0d0'; }
+      });
+      inp.addEventListener('keydown',(e)=>{ if(e.key==='Enter') b.click(); });
+    })();
+  </script>
+
+  <script src="snow.js"></script>
+</body>
+</html>

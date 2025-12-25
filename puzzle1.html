@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Puzzle 1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Puzzle One</h1>
+    <p class="subtitle">Reveal the ornaments and use the first letters to form the passphrase.</p>
+
+    <div id="tree-area">
+      <div id="ornaments" aria-hidden="false"></div>
+      <div id="lines"></div>
+    </div>
+
+    <div id="puzzle" class="hidden">
+      <p class="hint">Hint: Use the first letters of each revealed line to form the passphrase.</p>
+      <input id="answer" placeholder="Type the passphrase" autocomplete="off">
+      <button id="submit">Submit</button>
+      <p id="feedback" role="status"></p>
+    </div>
+
+    <p><a href="index.html">Back to landing</a></p>
+  </div>
+  <div style="text-align: center;">
+    <p>Fun Fact: Honeybees use a “waggle dance” to tell other bees where food is—and it encodes distance and direction relative to the sun.</p>
+  </div>
+
+  <canvas id="snow"></canvas>
+
+  <script>
+    // Poem lines for puzzle 1 (New Year's themed)
+    const LINES = [
+      "Before the room fills with noise, there’s a pause.",
+      "Every ending carries something forward.",
+      "Glasses don’t rise for the past.",
+      "In the moment between seconds, everything resets.",
+      "Nothing changes — until it does."
+    ];
+
+    const ornamentsEl = document.getElementById('ornaments');
+    const linesEl = document.getElementById('lines');
+    const puzzleEl = document.getElementById('puzzle');
+    const submitBtn = document.getElementById('submit');
+    const answerInput = document.getElementById('answer');
+    const feedback = document.getElementById('feedback');
+
+    let revealed = Array(LINES.length).fill(false);
+
+    function makeOrnaments() {
+      LINES.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'orn';
+        b.textContent = '★';
+        b.title = `Reveal line ${i+1}`;
+        b.addEventListener('click', () => reveal(i, b));
+        ornamentsEl.appendChild(b);
+
+        const p = document.createElement('div');
+        p.className = 'line';
+        p.id = `line-${i}`;
+        p.textContent = '';
+        linesEl.appendChild(p);
+      });
+    }
+
+    function reveal(i, btn) {
+      if (revealed[i]) return;
+      revealed[i] = true;
+      btn.style.transform = 'scale(.98)';
+      const p = document.getElementById(`line-${i}`);
+      p.textContent = LINES[i];
+      setTimeout(()=>p.classList.add('visible'),10);
+
+      if (revealed.every(Boolean)) {
+        setTimeout(()=>puzzleEl.classList.remove('hidden'), 400);
+      }
+    }
+
+    submitBtn.addEventListener('click', checkAnswer);
+    answerInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') checkAnswer(); });
+
+    function checkAnswer(){
+      const val = answerInput.value.trim().toUpperCase();
+      const pass = LINES.map(l=>l.trim()[0]).join('').toUpperCase(); // BEGIN
+      if(!val){ feedback.textContent = 'Try typing the passphrase.'; return; }
+      if(val === pass){
+        feedback.textContent = '';
+        puzzleEl.classList.add('hidden');
+        celebrate();
+        setTimeout(()=>{ window.location.href = 'puzzle2.html'; }, 900);
+      } else {
+        feedback.textContent = 'Not quite — check the first letters.';
+      }
+    }
+
+    function celebrate(){
+      document.querySelectorAll('.orn').forEach((o, idx)=>{
+        setTimeout(()=>{ o.style.transform='scale(1.15)'; o.style.background='linear-gradient(45deg,#fffb,#ffe1)'; }, idx*120);
+      });
+    }
+
+    makeOrnaments();
+  </script>
+
+  <script src="snow.js"></script>
+</body>
+</html>

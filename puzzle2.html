@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Puzzle 2</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Puzzle Two</h1>
+    <p class="subtitle">Use history + math to compute a Caesar shift and decode the 5-letter ciphertext.</p>
+
+    <section id="lock-ui">
+      <p>Enter the 5-letter passcode (case-insensitive):</p>
+      <input id="pass" maxlength="10" placeholder="Enter passcode" autocomplete="off">
+      <button id="go">Unlock</button>
+      <p id="msg" role="status"></p>
+    </section>
+
+    <p class="hint">Hint: Research three Roman years — The assassination of Julius Caesar; The Great Fire of Rome; The fall of the Western Roman Empire — then compute S=(C−B)+A and N=S mod 26. Ciphertext: H C O G H</p>
+
+    <p><a href="puzzle1.html">Back to Puzzle One</a></p>
+  </div>
+  <div style="text-align: center;">
+    <p>Fun Fact: Every time you learn something new, your brain physically changes by forming or strengthening connections—literally reshaping itself.</p>
+  </div>
+
+  <canvas id="snow"></canvas>
+  <script>
+    (function(){
+      const PASS = 'TOAST'; // correct passcode
+      const el = document.getElementById('pass');
+      const msg = document.getElementById('msg');
+      const btn = document.getElementById('go');
+
+      function normalize(s){ return (s||'').trim().toUpperCase(); }
+
+      function showSuccess(){
+        msg.textContent = 'Unlocked — opening next puzzle...';
+        msg.style.color = '#8ef58e';
+        setTimeout(()=>{ window.location.href = 'puzzle3.html'; }, 900);
+      }
+
+      function check(){
+        const val = normalize(el.value);
+        if(!val){ msg.textContent = 'Please enter the passcode.'; msg.style.color=''; return; }
+        if(val === PASS){ showSuccess(); }
+        else { msg.textContent = 'Incorrect — try again.'; msg.style.color = '#ffd0d0'; }
+      }
+
+      btn.addEventListener('click', check);
+      el.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') check(); });
+    })();
+  </script>
+
+  <script src="snow.js"></script>
+</body>
+</html>
